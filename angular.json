@@ -1,0 +1,212 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "google": {
+      "projectType": "library",
+      "root": "projects/google",
+      "sourceRoot": "projects/google/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/google/tsconfig.lib.json",
+            "project": "projects/google/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/google/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/google/src/test.ts",
+            "tsConfig": "projects/google/tsconfig.spec.json",
+            "karmaConfig": "projects/google/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/google/tsconfig.lib.json",
+              "projects/google/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "google-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/google-app",
+      "sourceRoot": "projects/google-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/google-app/browser",
+            "index": "projects/google-app/src/index.html",
+            "main": "projects/google-app/src/main.ts",
+            "polyfills": "projects/google-app/src/polyfills.ts",
+            "tsConfig": "projects/google-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/google-app/src/favicon.ico",
+              "projects/google-app/src/assets"
+            ],
+            "styles": [
+              "projects/google-app/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/google-app/src/environments/environment.ts",
+                  "with": "projects/google-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "google-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "google-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "google-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/google-app/src/test.ts",
+            "polyfills": "projects/google-app/src/polyfills.ts",
+            "tsConfig": "projects/google-app/tsconfig.spec.json",
+            "karmaConfig": "projects/google-app/karma.conf.js",
+            "assets": [
+              "projects/google-app/src/favicon.ico",
+              "projects/google-app/src/assets"
+            ],
+            "styles": [
+              "projects/google-app/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/google-app/tsconfig.app.json",
+              "projects/google-app/tsconfig.spec.json",
+              "projects/google-app/e2e/tsconfig.json",
+              "projects/google-app/tsconfig.server.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/google-app/e2e/protractor.conf.js",
+            "devServerTarget": "google-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "google-app:serve:production"
+            }
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/google-app/server",
+            "main": "projects/google-app/server.ts",
+            "tsConfig": "projects/google-app/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "projects/google-app/src/environments/environment.ts",
+                  "with": "projects/google-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "google-app:build",
+            "serverTarget": "google-app:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "google-app:build:production",
+              "serverTarget": "google-app:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "google-app:build:production",
+            "serverTarget": "google-app:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "google"
+}

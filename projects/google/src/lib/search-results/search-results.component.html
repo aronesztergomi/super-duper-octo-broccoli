@@ -1,0 +1,15 @@
+<div *ngIf="results$ | async as results">
+    <ul>
+        <li class="mb-7" *ngFor="let result of results">
+            <header>
+                <span class="text-sm text-gray-600">{{ result.displayLink }}</span>
+                <a href="result.link">
+                    <h2 class="text-xl text-blue-800 hover:underline">{{ result.title }}</h2>
+                </a>
+            </header>
+            <p class="text-sm text-gray-600" [innerHTML]="result.htmlSnippet | safeHtml"></p>
+        </li>
+    </ul>
+    
+    <lib-paging></lib-paging>
+</div>

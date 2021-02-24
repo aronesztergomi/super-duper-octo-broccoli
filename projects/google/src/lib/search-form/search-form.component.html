@@ -1,0 +1,9 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="">
+    <label>
+        <input formControlName="term" class="w-full border border-solid border-gray-400 rounded-full px-5 py-3 mb-6 hover:shadow-md focus:shadow-md">
+    </label>
+    <div class="text-center">
+        <button type="submit" class="border border-solid border-transparent hover:border-gray-400 hover:shadow-md focus:shadow-md rounded-sm px-3 py-2 mx-1 bg-gray-50 text-sm">Google-Keresés</button>
+        <button type="button" disabled class="border border-solid border-transparent hover:border-gray-400 hover:shadow-md focus:shadow-md rounded-sm px-3 py-2 mx-1 bg-gray-50 text-sm">Jó napom van</button>
+    </div>
+</form>
