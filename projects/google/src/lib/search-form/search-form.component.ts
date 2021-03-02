@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { SearchService } from './search.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'lib-search-form',
@@ -9,15 +9,23 @@ import { SearchService } from './search.service';
 })
 export class SearchFormComponent implements OnInit {
   searchForm = this.fb.group({
-    term: ['']
+    term: [this.route.snapshot.queryParams.q || '']
   });
 
-  constructor(private fb: FormBuilder, private search: SearchService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    this.search.term$.next(this.searchForm.value.term);
+    this.router.navigate(['.'], {
+      relativeTo: this.route,
+      queryParams: { q: this.searchForm.value.term.trim().split(' ').join('+') },
+      queryParamsHandling: 'merge'
+    });
   }
 }

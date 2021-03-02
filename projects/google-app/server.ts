@@ -46,8 +46,8 @@ export function app(): express.Express {
       return;
     }
 
-    const url: string = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${cx}&q=`;
-    const data = await fetch(`${url}${term.split(' ').join('+')}`).then(res => res.json());
+    const url = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${cx}&q=`;
+    const data = await fetch(`${url}${term.split(' ').join('+')}`).then(response => response.json());
 
     res.send(data);
   });

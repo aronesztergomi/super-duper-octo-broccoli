@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SearchService } from 'google';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'google-app';
+  constructor(private searchService: SearchService) {
+    this.searchService.setApiUrl(environment.apiUrl);
+  }
 }

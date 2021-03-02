@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { searchResults } from './search-form/search-result.type';
 
 @Component({
   selector: 'lib-google',
   template: `
-  <div style="max-width: 620px; font-family: arial, sans-serif" class="max-w-5xl mx-auto my-20">
-    <lib-logo></lib-logo>
-    <lib-search-form></lib-search-form>
-    <lib-search-results></lib-search-results>
-  </div>
+  <router-outlet></router-outlet>
   `,
   styles: [
   ]
 })
-export class GoogleComponent {
+export class GoogleComponent implements OnInit {
+  results!: searchResults;
 
   constructor() {}
 
+  ngOnInit(): void {}
 }

@@ -1,27 +1,24 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
-import { switchMap, takeUntil, map } from 'rxjs/operators';
-import { searchResultItem, searchResults } from './search-result.type';
+import { searchResults } from './search-result.type';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  public term$: Subject<string> = new Subject<string>();
+  private apiUrl = '';
 
-  public results$: Observable<searchResultItem[]> = this.term$.pipe(
-    switchMap(term => this.query(term).pipe(
-      takeUntil(this.results$),
-      map(results => results.items)
-    ))
-  );
+  constructor(
+    private http: HttpClient
+  ) {}
 
-  constructor(private http: HttpClient) {}
+  public query(params: Params): Observable<searchResults> {
+    return this.http.get<searchResults>(`${this.apiUrl}/api/google?q=${params.q}`);
+  }
 
-  private query(term: string): Observable<searchResults> {
-    // TODO: inject baseURL 
-      return this.http.get<searchResults>(`/api/google?q=${term.split(' ').join('+')}`);
-    }
+  public setApiUrl(url: string): void {
+    this.apiUrl = url;
+  }
 }
