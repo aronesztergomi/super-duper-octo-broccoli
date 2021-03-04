@@ -11,6 +11,7 @@ import { PagingComponent } from './paging/paging.component';
 import { GoogleRoutingModule } from './google-routing.module';
 import { RouterModule } from '@angular/router';
 import { GoogleSearchComponent } from './google-search/google-search.component';
+import { SearchInformationComponent } from './search-information/search-information.component';
 
 
 
@@ -22,7 +23,8 @@ import { GoogleSearchComponent } from './google-search/google-search.component';
     SearchResultsComponent,
     SafeHtmlPipe,
     PagingComponent,
-    GoogleSearchComponent
+    GoogleSearchComponent,
+    SearchInformationComponent
   ],
   imports: [
     CommonModule,

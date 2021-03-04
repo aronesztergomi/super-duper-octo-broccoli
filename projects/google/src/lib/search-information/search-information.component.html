@@ -1,0 +1,5 @@
+<div *ngIf="information" class="text-sm text-gray-400 leading-10">
+  <div>{{ pageNumber + 1 }}. oldal a nagyjából {{ information.formattedTotalResults }} találatból
+    <span> ({{ information.searchTime | number:'1.1-2'}} másodperc)&nbsp;</span>
+  </div>
+</div>

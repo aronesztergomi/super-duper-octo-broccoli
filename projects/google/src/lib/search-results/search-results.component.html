@@ -1,4 +1,5 @@
 <div *ngIf="results">
+  <lib-search-information [information]="information" [pageNumber]="startIndex"></lib-search-information>
   <ul>
     <li class="mb-7" *ngFor="let result of results">
       <header>
@@ -11,13 +12,14 @@
     </li>
   </ul>
 
-  <lib-paging></lib-paging>
+  <lib-paging *ngIf="queries.nextPage || queries.previousPage" [queries]="queries" [searchTerms]="searchTerms"></lib-paging>
 </div>
+
 <div *ngIf="noResults">
-  <div class="card-section">
-    <p aria-level="3" role="heading" style="padding-top:.33em">A keresett kifejezés (<span><em>szia23232</em></span>)
+  <div class="card-section text-base">
+    <p aria-level="3" role="heading" class="mt-10 mb-4" style="padding-top:.33em">A keresett kifejezés (<b><em>{{ searchTerms }}</em></b>)
     egyetlen dokumentumban sem található meg.</p>
-    <p style="margin-top:1em">Javaslatok:</p>
+    <p class="my-4">Javaslatok:</p>
     <ul style="margin-left:1.3em;margin-bottom:2em">
       <li>Győződjön meg arról, hogy valamennyi szót helyesen írta.</li>
       <li>Próbálkozzon más kulcsszavakkal.</li>

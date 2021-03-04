@@ -10,6 +10,8 @@ import { existsSync } from 'fs';
 import * as fetch from 'node-fetch';
 import * as dotenv from 'dotenv';
 
+const cache: any = {};
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -34,7 +36,8 @@ export function app(): express.Express {
   server.get('/api/google', async (req, res) => {
     const key = dotenv.config().parsed?.GOOGLE_API_KEY;
     const cx = dotenv.config().parsed?.GOOGLE_API_CX;
-    const term = req.query.q as string || '';
+    const term = (req.query.q as string || '').split(' ').join('+');
+    const index = req.query.start || 1;
 
     if ( !key || !cx ) {
       res.status(500).send({ error: 'Something failed, please try again later.' });
@@ -46,10 +49,17 @@ export function app(): express.Express {
       return;
     }
 
-    const url = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${cx}&q=`;
-    const data = await fetch(`${url}${term.split(' ').join('+')}`).then(response => response.json());
+    const url = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${cx}&q=${term}&start=${index}`;
+    console.log(url); // TODO: fix duplicated query
 
-    res.send(data);
+    if ( cache[url] ) {
+      res.send(cache[url]);
+    } else {
+      const data = await fetch(url).then(response => response.json());
+
+      cache[url] = data;
+      res.send(data);
+    }
   });
 
   // All regular routes use the Universal engine

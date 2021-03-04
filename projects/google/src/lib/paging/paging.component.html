@@ -1,72 +1,45 @@
 <table class="AaVjTc" style="border-collapse:collapse;text-align:left;margin:30px auto 30px" role="presentation">
     <tbody>
-        <tr jsname="TeSSVd" valign="top">
-            <td aria-level="3" class="p-0 text-center font-medium" role="heading"><a
-                    class="text-blue-500 hover:underline"
-                    href="/search?q=hello&amp;biw=2560&amp;bih=933&amp;ei=EwI1YP-XIMjVkwXk2p6oAg&amp;start=0&amp;sa=N&amp;ved=2ahUKEwi_7bm3jYDvAhXI6qQKHWStByU4ChDx0wN6BAgGEDc"
-                    id="pnprev"><span class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:0 0;background-size:167px;width:53px;float:right"></span><span
-                        style="display:block;margin-right:35px;clear:right">Előző</span></a></td>
+        <tr valign="top">
+            <td *ngIf="previous" aria-level="3" class="p-0 text-center font-medium" role="heading">
+              <a class="text-blue-500 hover:underline" [routerLink]="['.']" [queryParams]="{q: searchTerms, start: previous.param}">
+                <span class="block h-10 overflow-hidden NVbCr" style="background:url(assets/images/nav_logo299_hr.webp) no-repeat;background-position:0 0;background-size:167px;width:53px;float:right"></span>
+                <span style="display:block;margin-right:35px;clear:right">Előző</span>
+              </a>
+            </td>
 
-            <!--td class="p-0 text-center font-medium">
+            <td *ngIf="!previous" class="p-0 text-center font-medium">
                 <span class="block h-10 overflow-hidden"
-                    style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-24px 0;background-size:167px;width:28px"></span>
-            </td-->
-            <td class="p-0 text-center font-medium">
-                <span class="block h-10 overflow-hidden"
-                    style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-53px 0;background-size:167px;width:20px"></span>1
+                    style="background:url(assets/images/nav_logo299_hr.webp) no-repeat;background-position:-24px 0;background-size:167px;width:28px"></span>
             </td>
-            <td><a aria-label="Page 2" class="block text-blue-500 hover:underline font-medium"
-                    href="https://www.google.com/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=10&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxA6"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>2</a>
+
+            <ng-container *ngFor="let page of pages">
+                <ng-container *ngIf="current.param === page.param">
+                    <td class="text-center font-medium">
+                        <span class="block h-10 overflow-hidden" style="background:url(assets/images/nav_logo299_hr.webp) no-repeat;background-position:-53px 0;background-size:167px;width:20px"></span>
+                        {{ page.index + 1 }}
+                    </td>
+                </ng-container>
+                <ng-container *ngIf="current.param !== page.param">
+                    <td class="text-center">
+                        <a [routerLink]="['.']" [queryParams]="{q: searchTerms, start: page.param}" aria-label="Page {{ page.index + 1 }}" class="block text-blue-500 hover:underline font-medium">
+                            <span class="block h-10 overflow-hidden NVbCr" style="background:url(assets/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>
+                            {{ page.index + 1 }}
+                        </a>
+                    </td>
+                </ng-container>
+            </ng-container>
+
+            <td *ngIf="next" aria-level="3" class="d6cvqb" role="heading">
+              <a [routerLink]="['.']" [queryParams]="{q: searchTerms, start: next.param}" class="text-blue-500 hover:underline" style="text-align:left">
+                <span class="block h-10 overflow-hidden NVbCr" style="background:url(assets/images/nav_logo299_hr.webp) no-repeat;background-position:-96px 0;background-size:167px;width:71px"></span>
+                <span style="display:block;margin-left:53px">Következő</span>
+              </a>
             </td>
-            <td><a aria-label="Page 3" class="block text-blue-500 hover:underline font-medium"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=20&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxA8"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>3</a>
-            </td>
-            <td><a aria-label="Page 4" class="block text-blue-500 hover:underline font-medium"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=30&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxA-"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>4</a>
-            </td>
-            <td><a aria-label="Page 5" class="block text-blue-500 hover:underline font-medium"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=40&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxBA"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>5</a>
-            </td>
-            <td><a aria-label="Page 6" class="block text-blue-500 hover:underline font-medium"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=50&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxBC"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>6</a>
-            </td>
-            <td><a aria-label="Page 7" class="block text-blue-500 hover:underline font-medium"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=60&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxBE"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>7</a>
-            </td>
-            <td><a aria-label="Page 8" class="block text-blue-500 hover:underline font-medium"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=70&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxBG"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>8</a>
-            </td>
-            <td><a aria-label="Page 9" class="block text-blue-500 hover:underline font-medium"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=80&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxBI"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>9</a>
-            </td>
-            <td><a aria-label="Page 10" class="block text-blue-500 hover:underline font-medium"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=90&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8tMDegQIDxBK"><span
-                        class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-74px 0;background-size:167px;width:20px"></span>10</a>
-            </td>
-            <td aria-level="3" class="d6cvqb" role="heading"><a
-                class="text-blue-500 hover:underline"
-                    href="/search?q=hello&amp;ei=rdg0YP_6KuGCi-gP1sKkiAM&amp;start=10&amp;sa=N&amp;ved=2ahUKEwi_hYL65f_uAhVhwQIHHVYhCTEQ8NMDegQIDxBM"
-                    id="pnnext" style="text-align:left"><span class="block h-10 overflow-hidden NVbCr"
-                        style="background:url(https://www.google.com/images/nav_logo299_hr.webp) no-repeat;background-position:-96px 0;background-size:167px;width:71px"></span><span
-                        style="display:block;margin-left:53px">Következő</span></a></td>
+
+          <td *ngIf="!next" class="d6cvqb">
+            <span class="block h-10 overflow-hidden" style="background:url(assets/images/nav_logo299_hr.webp) no-repeat;background-position:-96px 0;background-size:167px;width:45px"></span>
+          </td>
         </tr>
     </tbody>
 </table>

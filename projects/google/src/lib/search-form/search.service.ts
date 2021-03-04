@@ -15,7 +15,7 @@ export class SearchService {
   ) {}
 
   public query(params: Params): Observable<searchResults> {
-    return this.http.get<searchResults>(`${this.apiUrl}/api/google?q=${params.q}`);
+    return this.http.get<searchResults>(`${this.apiUrl}/api/google?q=${params.q}&start=${params.start || 1}`);
   }
 
   public setApiUrl(url: string): void {

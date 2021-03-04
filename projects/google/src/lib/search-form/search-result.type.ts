@@ -46,7 +46,26 @@ export interface searchResultItem {
     pagemap: searchResultPagemap;
 }
 
+export interface searchQuery {
+  count: number;
+  cx: string;
+  inputEncoding: string;
+  outputEncoding: string;
+  safe: 'off' | 'on';
+  searchTerms: string;
+  startIndex: number;
+  title: string;
+  totalResults: string;
+}
+
+export interface searchQueries {
+  nextPage: searchQuery[];
+  previousPage: searchQuery[];
+  request: searchQuery[];
+}
+
 export interface searchResults {
     searchInformation: searchInformation;
     items: searchResultItem[];
+    queries: searchQueries;
 }

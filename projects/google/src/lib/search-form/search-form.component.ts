@@ -24,7 +24,10 @@ export class SearchFormComponent implements OnInit {
   onSubmit(): void {
     this.router.navigate(['.'], {
       relativeTo: this.route,
-      queryParams: { q: this.searchForm.value.term.trim().split(' ').join('+') },
+      queryParams: {
+        q: this.searchForm.value.term.trim().split(' ').join('+'),
+        start: 1
+      },
       queryParamsHandling: 'merge'
     });
   }

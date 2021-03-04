@@ -61,7 +61,8 @@
             "aot": true,
             "assets": [
               "projects/google-app/src/favicon.ico",
-              "projects/google-app/src/assets"
+              "projects/google-app/src/assets",
+              { "glob": "**/*", "input": "projects/google/src/assets", "output": "./assets" }
             ],
             "styles": [
               "projects/google-app/src/styles.css"
